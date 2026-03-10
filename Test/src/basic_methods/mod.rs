@@ -1,2 +1,3 @@
 pub mod k_grams;
-pub mod dl_distance;
+pub mod l_distance;
+pub mod minhash;

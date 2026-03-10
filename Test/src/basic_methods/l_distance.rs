@@ -60,8 +60,5 @@ pub fn l_distance(txt1 : &str, txt2 : &str) -> u32
 
 }
 
-pub fn l_distance(txt1 : &str, txt2 : &str) -> u32
-{
 
-}
 //FIX : pareil que dans k-gram ici il faut traité les accent et caractere speciaux  
