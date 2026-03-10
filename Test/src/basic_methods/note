@@ -1,0 +1,4 @@
+ici on implemente les algos donnée par le cahier des charges
+on a : k-grams, Distance d'edition (Levenshtein, Damerau-Levenshtein), MinHash, tokenisation
+
+donc se sera le squelette du projet car c'est de ses algo que l'on pars, la vrai difficulté sera le choix, suivant de la gueule des fichiers a analysé, des algos a utilisé 
