@@ -1,6 +1,8 @@
 //use testo::basic_methods::k_grams::k_grams;
 //use testo::basic_methods::l_distance::l_distance;
-use testo::basic_methods::minhash::minhash;
+//use testo::basic_methods::minhash::minhash;
+//use testo::file_process::file_process::read_file;
+use testo::file_process::file_process::return_file;
 #[test]
 fn tst()
 {
@@ -25,13 +27,14 @@ fn tst()
     println!("La distance est : {}", dist);
     println!("==== fin distance DL ====");*/
 
-    let e1 : &str = "the cat sat on a mat";
+/*    let e1 : &str = "the cat sat on a mat";
     let e2 : &str = "the cat sat on the mat";
     let res = minhash(e1,e2);
     println!("Le Resulta ===> {}",res);
+*/
 
-
-
+    
+   return_file("example1.txt","example2.txt");
 
 
 }
