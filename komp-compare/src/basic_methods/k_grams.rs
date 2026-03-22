@@ -1,3 +1,15 @@
+fn containss(occ : &str , lst :&Vec<String>)->bool
+{
+    for c in lst
+    {
+        if occ == *c
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 pub fn k_grams(txt1 : &str,txt2 : &str, k : usize, space : bool) -> f32
 {
     let mut txt1 = txt1.to_string();
@@ -9,8 +21,8 @@ pub fn k_grams(txt1 : &str,txt2 : &str, k : usize, space : bool) -> f32
         txt2 = txt2.replace(" ", "");
     } 
 
-    let mut shingle_list_1 : Vec<&str> = Vec::new();
-    let mut shingle_list_2 : Vec<&str> = Vec::new();
+    let mut shingle_list_1 : Vec<String> = Vec::new();
+    let mut shingle_list_2 : Vec<String> = Vec::new();
 
     let len_txt_1 = txt1.chars().count();
     let len_txt_2 = txt2.chars().count();
@@ -18,14 +30,24 @@ pub fn k_grams(txt1 : &str,txt2 : &str, k : usize, space : bool) -> f32
     let mut i = 0;
     let mut j = 0;
 
+    let txt1 = txt1.to_lowercase();
     while i <= len_txt_1 - k 
     {
-         shingle_list_1.push(&txt1[i..=i+k-1]);
+        let s = &txt1[i..=i+k-1];
+        if !containss( s, &shingle_list_1)
+        {
+             shingle_list_1.push(s.to_string());
+        }
          i+=1;
     }
+    let txt2 = txt2.to_lowercase();
     while j <= len_txt_2 - k 
     {
-         shingle_list_2.push(&txt2[j..=j+k-1]);
+        let s = &txt2[j..=j+k-1];
+         if !containss( &s, &shingle_list_2)
+         {
+            shingle_list_2.push(s.to_string());
+         }
          j+=1;
     }
     let mut same_values = 0;
