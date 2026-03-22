@@ -1,4 +1,4 @@
-//use testo::basic_methods::k_grams::k_grams;
+/*//use testo::basic_methods::k_grams::k_grams;
 //use testo::basic_methods::l_distance::l_distance;
 //use testo::basic_methods::minhash::minhash;
 //use testo::file_process::file_process::read_file;
@@ -38,3 +38,4 @@ fn tst()
 
 
 }
+*/
