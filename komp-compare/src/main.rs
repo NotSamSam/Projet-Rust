@@ -1,16 +1,27 @@
-use komp_compare::file_process::file_process::compare_file;
+use komp_compare::basic_methods::minhash::find_similar_docs;
+use std::fs;
+use std::collections::{HashMap, HashSet};
+
 
 pub fn main()
 {
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 1));   
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 2));
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 3));
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 4));
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 5));
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 6));
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 7));
-    println!("returned value : {}", compare_file("example1.txt", "example2.txt", false, 8));
+    let mut documents: Vec<String> = Vec::new();
+    for i in 1..=50 
+    {
+        let filename = format!("example_stack/doc{}.txt", i);
+        let content = fs::read_to_string(filename).expect("Impossible de lire le fichier");
+        documents.push(content);
+    }
+    let k = 5;             
+    let num_hashes = 100;  
+    let bands = 20;        
+    let threshold = 0.8;
 
-//        println!("returned value : {}", l_distance_file("example1.txt", "example2.txt"));    
+    let similar_docs: HashMap<usize, HashSet<usize>> =
+    find_similar_docs(&documents, k, threshold, bands, num_hashes);
 
+     for (doc, similars) in similar_docs.iter() 
+     {
+        println!("Document {} est similaire avec {:?}", doc, similars);
+    }
 }

@@ -24,17 +24,15 @@ pub fn k_grams_only(txt1 : &str, k : usize, space : bool) -> Vec<String>
 
     let mut shingle_list_1 : Vec<String> = Vec::new();
     let len_txt_1 = txt1.chars().count();
-    let mut i = 0;
 
     let txt1 = txt1.to_lowercase();
-    while i <= len_txt_1 - k
+    for i in 0..=len_txt_1 - k
     {
         let s: String = txt1.chars().skip(i).take(k).collect();
         if !containss( s.clone(), &shingle_list_1)
         {
              shingle_list_1.push(s);
         }
-         i+=1;
     }
     return shingle_list_1;
 }
