@@ -1,0 +1,352 @@
+/* KOMP - Style Officiel (Projet S4)
+   Couleurs : Bleu #3b82f6 | Violet #8b5cf6
+*/
+
+:root {
+    --primary-blue: #3b82f6;
+    --primary-purple: #8b5cf6;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --bg-light: #f9fafb; 
+    --card-bg: #ffffff; 
+    --logo-bg: #f8f9fb; /* La couleur exacte du fond de ton image */
+}
+
+/* Base et Typographie */
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header et Logo (Fusion parfaite) */
+.main-header {
+    background-color: var(--logo-bg) !important; 
+    padding: 50px 20px;
+    text-align: center;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.main-logo {
+    max-width: 280px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /* Optionnel : adoucit les bords si l'image a un micro-défaut */
+    outline: 5px solid var(--logo-bg);
+}
+
+/* Cartes et Sections */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Titres */
+.gradient-text {
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: var(--primary-blue);
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+/* Boutons */
+.btn-primary, .btn-secondary, .btn-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 99px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary.disabled {
+    background-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: #f3f4f6;
+    color: var(--text-main);
+    font-family: inherit;
+}
+
+.btn-secondary:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-github {
+    background-color: #1f2937;
+    color: white;
+    margin-top: 10px;
+}
+
+/* Bouton Téléchargement PDF (Cahier des charges) */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff;
+    color: var(--primary-purple);
+    border: 2px solid var(--primary-purple);
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-download:hover {
+    background-color: var(--primary-purple);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Cahier des charges (Section cachée) */
+.hidden-content {
+    display: none;
+    background-color: #f9fafb;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 20px;
+    border-left: 4px solid var(--primary-purple);
+    text-align: left;
+}
+
+.hidden-content.show {
+    display: block;
+}
+
+/* Grille pour Téléchargement & GitHub */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Footer */
+.main-footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .gradient-text { font-size: 2em; }
+}
+#header-img {
+    /* --- POSITION FIXE --- */
+    position: fixed;   /* Reste collé à l'écran au scroll */
+    top: 20px;         /* Distance du haut */
+    right: 20px;       /* Distance de la droite */
+    z-index: 10000;    /* Passe par-dessus TOUT le reste */
+    
+    /* --- FORMAT CARRÉ --- */
+    width: 100px;      /* Largeur fixe */
+    height: 100px;     /* Hauteur égale pour le carré */
+    border-radius: 12px; /* Coins légèrement arrondis (style moderne) */
+    object-fit: cover; /* Empêche de déformer l'image dans le carré */
+    
+
+}
+
+/* Effet au survol du logo fixe */
+#header-img:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-blue);
+    cursor: pointer;
+}
+/* --- LE HEADER (LEADER) --- */
+.main-header {
+    background-color: var(--bg-light);
+    padding: 60px 20px 40px 20px;
+    text-align: center;
+    position: relative; 
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* --- LE LOGO FIXE EN HAUT À DROITE (SANS BORDURE) --- */
+#header-img {
+    position: fixed;   /* Reste à l'écran */
+    top: 20px;
+    right: 20px;
+    z-index: 10000;    /* Passe devant tout */
+    
+    width: 100px;      /* Format carré */
+    height: 100px;
+    border: none;      /* Pas de bordure */
+    background: none;
+    object-fit: contain;
+    
+    transition: transform 0.3s ease;
+}
+
+#header-img:hover {
+    transform: scale(1.1);
+}
+
+/* --- TITRE ET NAVIGATION --- */
+.logo-container {
+    margin-bottom: 25px;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 3rem;
+    margin: 0;
+}
+
+#nav-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-purple);
+}
+
+/* --- ADAPTATION MOBILE --- */
+@media (max-width: 768px) {
+    #header-img {
+        position: static; /* Redevient normal sur téléphone */
+        margin: 0 auto 20px auto;
+        display: block;
+    }
+    #nav-bar {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+/* --- Style de la Section Équipe (Format Carré & Large) --- */
+.team-section {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.team-intro {
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+    gap: 40px; /* Plus d'espace car les photos sont plus grosses */
+}
+
+.team-member {
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-10px); /* Lévitation légèrement plus prononcée */
+}
+
+.profile-pic {
+    /* PHOTOS PLUS GROSSES ICI */
+    width: 200px; 
+    height: 200px;
+    margin: 0 auto 25px;
+    
+    /* FORMAT CARRÉ MODERNE */
+    border-radius: 15px; 
+    overflow: hidden;
+    
+    /* SANS BORDURE (pour matcher ton logo) ou avec une bordure très fine */
+    border: none; 
+    background-color: #f3f4f6;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); /* Petite ombre pour donner du relief */
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Photo parfaitement centrée dans le carré */
+    object-position: center top;
+}
+
+.team-member h3 {
+    font-size: 1.4rem; /* Texte un peu plus gros pour suivre la photo */
+    margin-bottom: 8px;
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.role {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--primary-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.team-member p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* --- Responsive : Adaptation pour tablettes et mobiles --- */
+@media (max-width: 1024px) {
+    .team-grid {
+        gap: 20px; /* On réduit l'espace sur tablette */
+    }
+    .profile-pic {
+        width: 160px;
+        height: 160px;
+    }
+}

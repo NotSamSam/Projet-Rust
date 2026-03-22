@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOMP - Comparaison de Fichiers Intelligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <img id="header-img" src="logo_komp.png" alt="Logo KOMP" />
+
+        <div class="logo-container">
+            <h1 class="site-title gradient-text">KOMP</h1>
+        </div>
+
+        <nav id="nav-bar">
+            <div class="nav-links">
+                <a class="nav-link" href="#Qui">L'Équipe</a>
+                <a class="nav-link" href="#Comment">Le Projet</a>
+                <a class="nav-link" href="#Nous">Contacts</a>
+            </div>
+            <div class="header-actions">
+                <a href="#form" class="btn-primary">Essayer KOMP</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card hero-section" id="Comment">
+            <h2 class="gradient-text">Comparez. Analysez. Simplement.</h2>
+            <p>KOMP est né d'un besoin simple : savoir en un clin d'œil à quel point deux fichiers ou images sont différents. Notre outil calcule un pourcentage de similitude précis pour optimiser votre flux de travail.</p>
+            
+            <div class="download-box">
+                <p>Consultez notre documentation technique :</p>
+                <a href="Cahier_des_charges_KOMP.pdf" download class="btn-download">
+                    <span>📄</span> Télécharger le Cahier des Charges (PDF)
+                </a>
+            </div>
+        </section>
+
+        <div class="grid-2">
+            <section class="card">
+                <h2>Télécharger</h2>
+                <p>Version 0.1 Beta bientôt disponible pour Windows et macOS.</p>
+                <a href="#" class="btn-primary disabled">Bientôt disponible...</a>
+            </section>
+
+           <section class="card">
+    <h2>Open Source</h2>
+    <p>Le projet est disponible sur GitHub. Contribuez au développement en Rust !</p>
+    <a href="https://github.com/NotSamSam/Projet-Rust.git" target="_blank" class="btn-github">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20">
+        Voir le code sur GitHub
+    </a>
+</section>
+        </div>
+
+<section class="card team-section" id="Qui">
+    <h2 class="gradient-text">L'Équipe KOMP</h2>
+    <p class="team-intro">Trois développeurs passionnés qui apprennent en créant des outils performants.</p>
+    
+    <div class="team-grid">
+        <div class="team-member">
+            <div class="profile-pic">
+                <img src="maywenn.jpg" alt="Maywenn KOUSSAWO">
+            </div>
+            <h3>Maywenn KOUSSAWO</h3>
+            <span class="role">Project Manager & Design</span>
+            <p>Coordination de l'équipe et conception de l'interface utilisateur pour une expérience fluide et intuitive.</p>
+        </div>
+
+        <div class="team-member">
+            <div class="profile-pic">
+                <img src="ayoub.jpg" alt="Ayoub EL-ASRI">
+            </div>
+            <h3>Ayoub EL-ASRI</h3>
+            <span class="role">Lead Developer Rust</span>
+            <p>Expertise technique sur le moteur de comparaison en Rust, garantissant rapidité et sécurité des données.</p>
+        </div>
+
+        <div class="team-member">
+            <div class="profile-pic">
+                <img src="lucas.jpg" alt="Lucas LEFRANC">
+            </div>
+            <h3>Lucas LEFRANC</h3>
+            <span class="role">Backend & Algorithmie</span>
+            <p>Développement des algorithmes de calcul de similitude et optimisation de la logique interne de KOMP.</p>
+        </div>
+    </div>
+</section>
+
+        <section class="card" id="Nous">
+            <h2>Restez informé</h2>
+            <form id="form" action="#">
+                <input name="email" id="email" placeholder="Votre email..." type="email" required>
+                <input id="submit" type="submit" value="S'inscrire">
+            </form>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 KOMP Project. Site épuré, code puissant.</p>
+    </footer>
+
+</body>
+</html>
