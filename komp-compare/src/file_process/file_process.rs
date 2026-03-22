@@ -55,7 +55,7 @@ pub fn l_distance_file(file1 : &str, file2 : &str)->u32
 
 }
 
-//pub fn find_occ(file1 : &str, list_file : Vec<&str>)
-//{
-    
-//} 
+/*pub fn find_occ(file1 : &str, list_file : Vec<&str>)
+{
+      
+} */
