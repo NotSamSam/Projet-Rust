@@ -1,68 +1,43 @@
-fn containss(occ : &str , lst :&Vec<String>)->bool
+use std::collections::HashSet;
+
+fn clean_code(txt : &str)
 {
-    for c in lst
-    {
-        if occ == *c
-        {
-            return true;
-        }
-    }
-    return false;
+    todo!()
 }
 
-pub fn k_grams(txt1 : &str,txt2 : &str, k : usize, space : bool) -> f32
-{
-    let mut txt1 = txt1.to_string();
-    let mut txt2 = txt2.to_string();
-
-    if space == false 
-    {
-        txt1 = txt1.replace(" ", "");
-        txt2 = txt2.replace(" ", "");
-    } 
-
-    let mut shingle_list_1 : Vec<String> = Vec::new();
-    let mut shingle_list_2 : Vec<String> = Vec::new();
-
-    let len_txt_1 = txt1.chars().count();
-    let len_txt_2 = txt2.chars().count();
-
-    let mut i = 0;
-    let mut j = 0;
-
-    let txt1 = txt1.to_lowercase();
-    while i <= len_txt_1 - k 
-    {
-        let s = &txt1[i..=i+k-1];
-        if !containss( s, &shingle_list_1)
-        {
-             shingle_list_1.push(s.to_string());
+pub fn k_grams(txt1: &str, txt2: &str, k: usize, space: bool, is_code : bool) -> f32 {
+    let process = |t: &str| -> String {
+        if space {
+            t.to_lowercase()
+        } else {
+            t.chars().filter(|c| !c.is_whitespace()).collect::<String>().to_lowercase()
         }
-         i+=1;
-    }
-    let txt2 = txt2.to_lowercase();
-    while j <= len_txt_2 - k 
-    {
-        let s = &txt2[j..=j+k-1];
-         if !containss( &s, &shingle_list_2)
-         {
-            shingle_list_2.push(s.to_string());
-         }
-         j+=1;
-    }
-    let mut same_values = 0;
-    for i in shingle_list_1.iter()
-    {
-        let no_local_i = i;
-        for j in shingle_list_2.iter()
-        {
-            if no_local_i == j
-            {
-                same_values += 1;
-                break;
+    };
+
+    let t1 = process(txt1);
+    let t2 = process(txt2);
+
+    let get_shingles = |text: &str| -> HashSet<String> {
+        let chars: Vec<char> = text.chars().collect();
+        let mut shingles = HashSet::new();
+        if chars.len() >= k {
+            for i in 0..=chars.len() - k {
+                let s: String = chars[i..i + k].iter().collect();
+                shingles.insert(s);
             }
         }
+        shingles
+    };
+
+    let set1 = get_shingles(&t1);
+    let set2 = get_shingles(&t2);
+
+    if set1.is_empty() && set2.is_empty() {
+        return 100.0;
     }
-    let total : f32 = (shingle_list_1.len() as f32 + shingle_list_2.len() as f32) - same_values as f32;
-    return ((same_values as f32)/total)*100.0;
+
+    let intersection = set1.intersection(&set2).count();
+    let union = set1.len() + set2.len() - intersection;
+
+    (intersection as f32 / union as f32) * 100.0
 }
