@@ -43,7 +43,7 @@ fn pick_and_read_file() -> Option<String> {
     }
 
     let path_str = path.to_string_lossy().to_string();
-    read_file_content(&path_str).ok() 
+    read_file_content(&path_str).ok()
 }
 
 fn setup_file_picker(frm: &mut Frame,stockage: Rc<RefCell<String>>) {
@@ -55,8 +55,7 @@ fn setup_file_picker(frm: &mut Frame,stockage: Rc<RefCell<String>>) {
                 if let Some(contenu) = pick_and_read_file()
                 {
                     *stockage.borrow_mut() = contenu.clone();
-                    zone.set_label(&format!("Chargé !\n\n{}",
-                        contenu.chars().take(40).collect::<String>()));
+                    zone.set_label("Chargé !");
                 }
                 true
             },
@@ -210,13 +209,14 @@ fn main()
 });
 
     but_ccs3.set_callback(move |_| {
-        valueccs.set_label("Similarité : 0%");
-        zone_1.set_label("Cliquez pour choisir\nun fichier .txt");
-        zone_2.set_label("Cliquez pour choisir\nun fichier .txt");
-         contenu_1 = Rc::new(RefCell::new(String::new()));
-         contenu_2 = Rc::new(RefCell::new(String::new())); 
-        
-    });
+    valueccs.set_label("Similarité : 0%");
+    zone_1.set_label("Cliquez pour choisir\nun fichier .txt");
+    zone_2.set_label("Cliquez pour choisir\nun fichier .txt");
+    
+    // CORRECTION : On vide le contenu sans changer le pointeur
+    contenu_1.borrow_mut().clear();
+    contenu_2.borrow_mut().clear(); 
+});
 
     let mut wiz_clone = wizard.clone();
     but1.set_callback(move |_| {wiz_clone.next()});

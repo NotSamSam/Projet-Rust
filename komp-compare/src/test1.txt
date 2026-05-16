@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+/* Fonction principale du programme
+   qui calcule la somme */
+int main() {
+    int total = 0;
+    
+    // Boucle de calcul simple
+    for (int i = 0; i < 10; i++) {
+        total += i;
+    }
+    
+    printf("Le total est : %d\n", total);
+    return 0;
+}

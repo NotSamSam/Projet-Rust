@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+// ============================================================================
+// Structure pour représenter un utilisateur dans le système
+// ============================================================================
+struct User {
+    int id;
+    std::string name;
+    bool is_admin; /* Flag pour les permissions */
+};
+
+/*
+ * Fonction principale de traitement des données.
+ * Elle simule le chargement et le filtrage des utilisateurs.
+ */
+void processUsers() {
+    // Initialisation d'une liste d'utilisateurs de test
+    std::vector<User> users = {
+        {1, "Alice", true},   // Administrateur système
+        {2, "Bob", false},    // Utilisateur standard
+        {3, "Charlie", false} // En attente de validation
+    };
+
+    std::cout << "--- Début du traitement ---" << std::endl;
+
+    // Parcours de la liste pour afficher les admins
+    for (const auto& user : users) {
+        if (user.is_admin) {
+            /* Si l'utilisateur a les droits d'admin, 
+               on affiche un message spécial */
+            std::cout << "[ADMIN] " << user.name << " (ID: " << user.id << ")\n";
+        } else {
+            std::cout << "[USER]  " << user.name << "\n";
+        }
+    }
+
+    // ATTENTION : Le site web ci-dessous contient des slashes.
+    // Une bonne fonction de nettoyage ne doit PAS supprimer "http://localhost/api" !
+    std::string apiUrl = "http://localhost/api/v1/users"; 
+    std::cout << "Connexion à l'API : " << apiUrl << std::endl;
+}
+
+int main() {
+    // Appel de la fonction de test
+    processUsers(); 
+    
+    return 0; /* Code de retour standard (0 = Tout s'est bien passé) */
+}

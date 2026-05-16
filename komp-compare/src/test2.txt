@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+int main() {
+    // Changement de nom de variable pour tester les k-grams
+    int somme = 0;
+    
+    /****** Autre style de commentaire ******/
+    for(int i=0; i<10; i++){
+        somme += i; /* commentaire en fin de ligne */
+    }
+    
+    printf("Le total est : %d\n", somme);
+    return 0;
+}
