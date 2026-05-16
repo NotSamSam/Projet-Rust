@@ -13,8 +13,6 @@ use fltk::enums::Event;
 use std::fs::File;
 use std::io::Read;
 use fltk::dialog::NativeFileChooser;
-use fltk::draw::set_cursor;
-use fltk::enums::Cursor;
 use std::rc::Rc;
 use std::cell::RefCell;
 use fltk::dialog::alert;
@@ -90,11 +88,9 @@ fn backround()
 }
 fn main()
 {
-    let contenu_1 = Rc::new(RefCell::new(String::new()));
-    let contenu_2 = Rc::new(RefCell::new(String::new()));
+    let mut contenu_1 = Rc::new(RefCell::new(String::new()));
+    let mut contenu_2 = Rc::new(RefCell::new(String::new()));
     //======================
-     let widht = 800;
-     let height = 600;
     //======================
 
     let app = app::App::default();
@@ -103,7 +99,7 @@ fn main()
     let mut wind = Window::new(100, 100, 800, 600, "Komp compare");
 
 //page d'accueil
-    let mut wizard = Wizard::default().size_of(&wind);
+    let wizard = Wizard::default().size_of(&wind);
     
     let mut accueil = Group::default().size_of(&wizard);
     backround();
@@ -133,7 +129,7 @@ fn main()
 
     let mut comparaison_classique = Group::default().size_of(&wizard);
     comparaison_classique.set_color(Color::from_rgb(245, 247, 249));
-    let mut frame_cc = Frame::new(0, 0, 400, 200, "Glissez vos documents a comparer");
+    let frame_cc = Frame::new(0, 0, 400, 200, "Glissez vos documents a comparer");
     let mut but_cc1 = Button::new(0,0,160,80,"Retour");
     color_button(&mut but_cc1);
     comparaison_classique.end();
@@ -186,15 +182,20 @@ fn main()
     frame_result_ccs.set_label_size(20);
     frame_format(&mut frame_result_ccs);
 
+    let mut but_ccs3 = Button::new(20,500,160,80,"Reinitialiser");
+    color_button(&mut but_ccs3);
     let mut but_compare = Button::new(320, 420, 160, 80, "Comparer les fichiers");
     color_button(&mut but_compare);
 
     wind.end();
     wind.show();
     
+   
+    let mut valueccs = frame_result_ccs.clone();
+
     let c1_handle = contenu_1.clone();
     let c2_handle = contenu_2.clone();
-    let mut result_frame = frm_ccs.clone();
+    let result_frame = frm_ccs.clone();
 
     but_compare.set_callback(move |_| {
     let texte1 = c1_handle.borrow();
@@ -207,6 +208,15 @@ fn main()
         frame_result_ccs.set_label(&format!("Similarité : {:.2}%", score));
     }
 });
+
+    but_ccs3.set_callback(move |_| {
+        valueccs.set_label("Similarité : 0%");
+        zone_1.set_label("Cliquez pour choisir\nun fichier .txt");
+        zone_2.set_label("Cliquez pour choisir\nun fichier .txt");
+         contenu_1 = Rc::new(RefCell::new(String::new()));
+         contenu_2 = Rc::new(RefCell::new(String::new())); 
+        
+    });
 
     let mut wiz_clone = wizard.clone();
     but1.set_callback(move |_| {wiz_clone.next()});
