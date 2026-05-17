@@ -6,4 +6,5 @@ edition = "2024"
 [dependencies]
 #probabilistic-collections = "0.7.0"
 #probminhash = "0.1.12"
+image = "0.24"
 fltk = { version = "^1.5", git = "https://github.com/fltk-rs/fltk-rs" }

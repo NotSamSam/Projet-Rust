@@ -91,6 +91,10 @@ pub fn k_grams(txt1: &str, txt2: &str, k: usize, space: bool, is_code : bool) ->
 
     let t1 = process(txt1);
     let t2 = process(txt2);
+    println!("{}",t1);
+     println!("=================================================");
+      println!("{}",t2);
+
 
     let get_shingles = |text: &str| -> HashSet<String> {
         let chars: Vec<char> = text.chars().collect();

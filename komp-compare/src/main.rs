@@ -120,12 +120,14 @@ fn main()
     let mut but_m1 = Button::new(320,80,180,80,"Textes classiques");
     let mut but_m2 = Button::new(320,170,180,80,"Code source");
     let mut but_m3 = Button::new(320,260,180,80,"Comparaison rapide");
-    let mut but_m4 = Button::new(320,350,180,80,"Retour");
+    let mut but_m4 = Button::new(320,440,180,80,"Retour");
+    let mut but_m5 = Button::new(320,350,180,80,"Comparaison d'images");
 
     color_button(&mut but_m1);
     color_button(&mut but_m2);
     color_button(&mut but_m3);
     color_button(&mut but_m4);
+    color_button(&mut but_m5);
     menu_principal.end();
 
 //main menu -> Comparaison classique
