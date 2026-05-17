@@ -16,7 +16,7 @@ use fltk::dialog::NativeFileChooser;
 use std::rc::Rc;
 use std::cell::RefCell;
 use fltk::dialog::alert;
-
+use std::cell::Cell;
 
 fn frame_format(frm : &mut Frame)
 {
@@ -87,8 +87,12 @@ fn backround()
 }
 fn main()
 {
-    let mut contenu_1 = Rc::new(RefCell::new(String::new()));
-    let mut contenu_2 = Rc::new(RefCell::new(String::new()));
+    let k = Rc::new(Cell::new(4));
+    let contenu_1 = Rc::new(RefCell::new(String::new()));
+    let contenu_2 = Rc::new(RefCell::new(String::new()));
+
+    let contenu_1c = Rc::new(RefCell::new(String::new()));
+    let contenu_2c = Rc::new(RefCell::new(String::new()));
     //======================
     //======================
 
@@ -128,9 +132,32 @@ fn main()
 
     let mut comparaison_classique = Group::default().size_of(&wizard);
     comparaison_classique.set_color(Color::from_rgb(245, 247, 249));
-    let frame_cc = Frame::new(0, 0, 400, 200, "Glissez vos documents a comparer");
-    let mut but_cc1 = Button::new(0,0,160,80,"Retour");
-    color_button(&mut but_cc1);
+    let mut but_cs1 = Button::new(610,500,160,80,"Retour");
+    color_button(&mut but_cs1);
+    let mut but_cs2 = Button::new(20,500,160,80,"Reinitialiser");
+    color_button(&mut but_cs2);
+    let mut but_compare_c = Button::new(320, 420, 160, 80, "Comparer les fichiers");
+    color_button(&mut but_compare_c);
+
+     let mut zone_1c =  Frame::new(150,300,200,100,"Cliquez pour choisir\nun fichier .txt");
+    frame_format(&mut zone_1c);
+    zone_1c.set_color(Color::from_rgb(215,215,215));
+    setup_file_picker(&mut zone_1c, contenu_1c.clone());
+
+    let mut zone_2c =  Frame::new(450,300,200,100,"Cliquez pour choisir\nun fichier .txt");
+    frame_format(&mut zone_2c);
+    zone_2c.set_color(Color::from_rgb(215,215,215));
+    setup_file_picker(&mut zone_2c, contenu_2c.clone());
+
+    let mut frm_cs = Frame::new(100,5,600,100,"Comparaison de textes");
+    frame_format(&mut frm_cs);
+    frm_cs.set_label_size(20);
+
+    let mut frame_result_cs = Frame::new(100,80,600,70,"Similarité : 0%");
+    frame_result_cs.set_label_size(20);
+    frame_format(&mut frame_result_cs);
+
+
     comparaison_classique.end();
 
 //main menu -> comparaison rapide
@@ -185,17 +212,45 @@ fn main()
     color_button(&mut but_ccs3);
     let mut but_compare = Button::new(320, 420, 160, 80, "Comparer les fichiers");
     color_button(&mut but_compare);
+    comparaison_code.end();
+
+//option de compa =====================
+
+    let mut option_compa = Group::default().size_of(&wizard);
+    option_compa.set_color(Color::from_rgb(245, 247, 249));
+    let mut frm_op1 = Frame::new(100,50,600,50,"Quel type de texte souhaitez-vous comparer ?");
+    frame_format(&mut frm_op1);
+
+    let mut but_op1 = Button::new(610,500,160,80,"Retour");
+    let mut but_op2 = Button::new(230,110,340,80,"Textes courts (Tweets, SMS, slogans)");
+    let mut but_op3 = Button::new(230,200,340,80,"Textes standards (Articles, rédactions, ...)");
+    let mut but_op4 = Button::new(230,290,340,80,"Textes longs et formels");
+    color_button(&mut but_op1);
+    color_button(&mut but_op2);
+    color_button(&mut but_op3);
+    color_button(&mut but_op4);
+    
+    option_compa.end();
 
     wind.end();
     wind.show();
     
-   
+  
+
+    let cl1 = comparaison_classique.clone();
+    let cl2 = comparaison_classique.clone();
+
     let mut valueccs = frame_result_ccs.clone();
+    let mut valuecs = frame_result_cs.clone();
 
     let c1_handle = contenu_1.clone();
     let c2_handle = contenu_2.clone();
-    let result_frame = frm_ccs.clone();
 
+    let c1_handle2 = contenu_1c.clone();
+    let c2_handle2 = contenu_2c.clone();
+
+    let _result_frame = frm_ccs.clone();
+    
     but_compare.set_callback(move |_| {
     let texte1 = c1_handle.borrow();
     let texte2 = c2_handle.borrow();
@@ -203,6 +258,8 @@ fn main()
     if texte1.is_empty() || texte2.is_empty() {
         alert(200, 200, "Veuillez choisir deux fichiers !");
     } else {
+
+        
         let score = k_grams(&texte1, &texte2, 3, false, true);
         frame_result_ccs.set_label(&format!("Similarité : {:.2}%", score));
     }
@@ -212,12 +269,53 @@ fn main()
     valueccs.set_label("Similarité : 0%");
     zone_1.set_label("Cliquez pour choisir\nun fichier .txt");
     zone_2.set_label("Cliquez pour choisir\nun fichier .txt");
-    
-    // CORRECTION : On vide le contenu sans changer le pointeur
     contenu_1.borrow_mut().clear();
     contenu_2.borrow_mut().clear(); 
 });
 
+ 
+    let k_op2 = k.clone();
+    let mut wiz_clonel1 = wizard.clone();
+    but_op2.set_callback(move |_| {
+        k_op2.set(4);
+        wiz_clonel1.set_current_widget(&comparaison_classique);});
+
+    let k_op3 = k.clone();
+    let mut wiz_clonel2 = wizard.clone();
+    but_op3.set_callback(move |_| {
+        k_op3.set(5);
+        wiz_clonel2.set_current_widget(&cl1);});
+
+    let k_op4 = k.clone();
+    let mut wiz_clonel3 = wizard.clone();
+    but_op4.set_callback(move |_| {
+        k_op4.set(7);
+        wiz_clonel3.set_current_widget(&cl2);});
+    let k_compare = k.clone();    
+    but_compare_c.set_callback(move |_|
+        {
+            let current_k = k_compare.get();
+            println!("{:?}",current_k);
+             let texte1 = c1_handle2.borrow();
+             let texte2 = c2_handle2.borrow();
+              if texte1.is_empty() || texte2.is_empty() {
+        alert(200, 200, "Veuillez choisir deux fichiers !");
+    }
+              else { 
+                    let score = k_grams(&texte1, &texte2, current_k, true, false);
+                    frame_result_cs.set_label(&format!("Similarité : {:.2}%", score));
+              }
+        });
+
+     but_cs2.set_callback(move |_| {
+    valuecs.set_label("Similarité : 0%");
+    zone_1c.set_label("Cliquez pour choisir\nun fichier .txt");
+    zone_2c.set_label("Cliquez pour choisir\nun fichier .txt");
+    contenu_1c.borrow_mut().clear();
+    contenu_2c.borrow_mut().clear();
+});
+
+    
     let mut wiz_clone = wizard.clone();
     but1.set_callback(move |_| {wiz_clone.next()});
 
@@ -226,18 +324,39 @@ fn main()
 
 
     let mut wiz_clone4 = wizard.clone();
-    but_cc1.set_callback(move |_| {wiz_clone4.prev()});
+    but_cs1.set_callback(move |_| {wiz_clone4.prev()});
+
 
     let mut wiz_clone3 = wizard.clone();
-    but_m1.set_callback(move |_| {wiz_clone3.set_current_widget(&comparaison_classique);});
+    but_m1.set_callback(move |_| {wiz_clone3.set_current_widget(&option_compa);});
 
      let mut wiz_clone5 = wizard.clone();
     but_m3.set_callback(move |_| {wiz_clone5.set_current_widget(&comparaison_rapide);});
 
-     let value = menu_principal.clone();
+    let value = menu_principal.clone();
+    let value2 = menu_principal.clone();
     let mut wiz_clone6 = wizard.clone();
     but_cr2.set_callback(move |_| {wiz_clone6.set_current_widget(&menu_principal);});
-   
+//========
+    let mut wiz_clonel = wizard.clone();
+    but_op1.set_callback(move |_| {
+        wiz_clonel.set_current_widget(&value2);});
+   /*
+    let mut wiz_clonel1 = wizard.clone();
+    but_op2.set_callback(move |_| {
+        k=4;
+        wiz_clonel1.set_current_widget(&comparaison_classique);});
+
+    let mut wiz_clonel2 = wizard.clone();
+    but_op3.set_callback(move |_| {
+        k=5;
+        wiz_clonel2.set_current_widget(&cl1);});
+
+    let mut wiz_clonel3 = wizard.clone();
+    but_op4.set_callback(move |_| {
+        k=7;
+        wiz_clonel3.set_current_widget(&cl2);}); */
+//=========
     let mut frame_c1 = frame_result_cr.clone();
     let inp1_c1 = inp1.clone();
     let inp2_c1 = inp2.clone();

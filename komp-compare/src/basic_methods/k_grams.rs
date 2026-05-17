@@ -7,9 +7,24 @@ fn clean_code_c(txt: &str) -> String {
     let mut etoile: bool = false;
     let mut fin_interval: bool = false;
 
+    let mut dans_balise: bool = false;
+
     let mut res: String = String::new();
     
     for c in txt.chars() {
+
+        if c == '[' && !etoile && !double_slash {
+            dans_balise = true;
+            continue;
+        }
+
+        if dans_balise {
+            if c == ']' {
+                dans_balise = false;
+            }
+            continue; 
+        }
+
         match c {
             '/' if !slash_ouvert && !etoile && !double_slash => {
                 slash_ouvert = true;
@@ -70,7 +85,7 @@ pub fn k_grams(txt1: &str, txt2: &str, k: usize, space: bool, is_code : bool) ->
         if space {
             cleaned.to_lowercase()
         } else {
-            t.chars().filter(|c| !c.is_whitespace()).collect::<String>().to_lowercase()
+            cleaned.chars().filter(|c| !c.is_whitespace()).collect::<String>().to_lowercase()
         }
     };
 
