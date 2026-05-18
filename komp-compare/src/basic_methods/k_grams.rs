@@ -1,6 +1,5 @@
 use std::collections::HashSet;
-
-
+//kcjsdkfbjskbhdfjhbsdjbfjshvjfvsjhvfhvsdjvhfjsdvhjhvfjkshfjvfd
 fn clean_code_c(txt: &str) -> String {
     let mut slash_ouvert: bool = false;
     let mut double_slash: bool = false;

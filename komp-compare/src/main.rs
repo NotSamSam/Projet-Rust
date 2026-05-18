@@ -1,4 +1,5 @@
 //use komp_compare::file_process::file_process::read_file;
+use komp_compare::basic_methods::img_compare::comparer_images;
 use komp_compare::basic_methods::l_distance::l_distance;
 use komp_compare::basic_methods::k_grams::k_grams;
 use fltk::enums::CallbackTrigger;
@@ -45,6 +46,38 @@ fn pick_and_read_file() -> Option<String> {
     let path_str = path.to_string_lossy().to_string();
     read_file_content(&path_str).ok()
 }
+fn pick_img() -> Option<String>
+{
+    let mut nfc = NativeFileChooser::new(fltk::dialog::NativeFileChooserType::BrowseFile);
+    nfc.set_filter("*.jpg");
+    nfc.show();
+    let path = nfc.filename();
+    if path.display().to_string().is_empty() {
+        return None;
+    }
+    return Some(path.to_string_lossy().to_string());
+}
+
+fn setup_img(frm: &mut Frame, stck: Rc<RefCell<String>>)
+{
+    frm.handle(move |zone, even|
+        {
+            match even
+            {
+                Event::Push => true,
+                Event::Released =>
+                {
+                    if let Some(contenu) = pick_img()
+                    {
+                        *stck.borrow_mut() = contenu.clone();
+                        zone.set_label("Chargé !");
+                    }
+                    true
+                },
+                _=> false,
+            }
+        });    
+}
 
 fn setup_file_picker(frm: &mut Frame,stockage: Rc<RefCell<String>>) {
     frm.handle(move |zone, even| {
@@ -63,6 +96,8 @@ fn setup_file_picker(frm: &mut Frame,stockage: Rc<RefCell<String>>) {
         }
     });
 }
+
+
 
 fn color_button(but : &mut button::Button)
 {
@@ -90,7 +125,8 @@ fn main()
     let k = Rc::new(Cell::new(4));
     let contenu_1 = Rc::new(RefCell::new(String::new()));
     let contenu_2 = Rc::new(RefCell::new(String::new()));
-
+    let path_img1 = Rc::new(RefCell::new(String::new()));
+    let path_img2 = Rc::new(RefCell::new(String::new()));
     let contenu_1c = Rc::new(RefCell::new(String::new()));
     let contenu_2c = Rc::new(RefCell::new(String::new()));
     //======================
@@ -190,10 +226,10 @@ fn main()
     frame_format(&mut frm_ccs);
     frm_ccs.set_label_size(20);
     let mut deco = Frame::new(95,295,610,110,"");
-     frame_format(&mut deco);
-     deco.set_color(Color::from_rgb(195,182,253));
+    frame_format(&mut deco);
+    deco.set_color(Color::from_rgb(195,182,253));
 
-      let mut but_ccs1 = Button::new(610,500,160,80,"Retour");
+    let mut but_ccs1 = Button::new(610,500,160,80,"Retour");
     color_button(&mut but_ccs1);
 
     let mut zone_1 =  Frame::new(150,300,200,100,"Cliquez pour choisir\nun fichier .txt");
@@ -231,8 +267,43 @@ fn main()
     color_button(&mut but_op2);
     color_button(&mut but_op3);
     color_button(&mut but_op4);
-    
     option_compa.end();
+
+//Image comparasion
+    let mut image_compare = Group::default().size_of(&wizard);
+    image_compare.set_color(Color::from_rgb(245, 247, 249));
+    let mut frame_result_im = Frame::new(100,80,600,70,"Similarité : 0%");
+    frame_result_im.set_label_size(20);                           
+    frame_format(&mut frame_result_im);
+    let mut deco_im = Frame::new(95,295,610,110,"");
+    frame_format(&mut deco_im);
+    deco_im.set_color(Color::from_rgb(195,182,253));
+
+     let mut zone_1im =  Frame::new(150,300,200,100,"Cliquez pour choisir\nune image.jpg");
+
+    frame_format(&mut zone_1im); 
+    zone_1im.set_color(Color::from_rgb(215,215,215));
+    let mut zone_2im =  Frame::new(450,300,200,100,"Cliquez pour choisir\nune image.jpg");
+    setup_img(&mut zone_1im, path_img1.clone());
+
+    frame_format(&mut zone_2im);
+    zone_2im.set_color(Color::from_rgb(215,215,215));
+    setup_img(&mut zone_2im, path_img2.clone());
+    let mut frm_im = Frame::new(100,5,600,100,"Comparaison d'image");
+    frame_format(&mut frm_im);
+    frm_im.set_label_size(20);
+ 
+    let mut but_im1 = Button::new(610,500,160,80,"Retour");
+    color_button(&mut but_im1); 
+    
+     let mut but_im2 = Button::new(320, 420, 160, 80, "Comparer les images");
+     color_button(&mut but_im2);
+
+     let mut but_im3 = Button::new(20,500,160,80,"Reinitialiser");
+     color_button(&mut but_im3);
+
+
+    image_compare.end();
 
     wind.end();
     wind.show();
@@ -244,19 +315,22 @@ fn main()
 
     let mut valueccs = frame_result_ccs.clone();
     let mut valuecs = frame_result_cs.clone();
+    let mut valueim = frame_result_im.clone();
 
     let c1_handle = contenu_1.clone();
     let c2_handle = contenu_2.clone();
 
     let c1_handle2 = contenu_1c.clone();
     let c2_handle2 = contenu_2c.clone();
+    
+    let c1_handle3 = path_img1.clone();
+    let c2_handle3 = path_img2.clone();
 
     let _result_frame = frm_ccs.clone();
     
     but_compare.set_callback(move |_| {
     let texte1 = c1_handle.borrow();
     let texte2 = c2_handle.borrow();
-
     if texte1.is_empty() || texte2.is_empty() {
         alert(200, 200, "Veuillez choisir deux fichiers !");
     } else {
@@ -267,6 +341,30 @@ fn main()
     }
 });
 
+    but_im2.set_callback(move |_|
+        {
+            let texte1 = c1_handle3.borrow();
+            let texte2 = c2_handle3.borrow();
+            if texte1.is_empty() || texte2.is_empty() {
+        alert(200, 200, "Veuillez choisir deux fichiers !");
+    }   
+             else {
+        
+        let score = comparer_images(&texte1, &texte2);
+        frame_result_im.set_label(&format!("Similarité : {:.2}%", score.unwrap()));
+    }
+        });
+
+    but_im3.set_callback(move |_| 
+        {
+            valueim.set_label("Similarité : 0%");
+            zone_1im.set_label("Cliquez pour choisir\nun fichier .txt");
+            zone_2im.set_label("Cliquez pour choisir\nun fichier .txt");
+            path_img1.borrow_mut().clear();
+            path_img2.borrow_mut().clear();
+        });
+    
+    
     but_ccs3.set_callback(move |_| {
     valueccs.set_label("Similarité : 0%");
     zone_1.set_label("Cliquez pour choisir\nun fichier .txt");
@@ -317,7 +415,11 @@ fn main()
     contenu_2c.borrow_mut().clear();
 });
 
-    
+
+    let mut wiz_clonex = wizard.clone();
+    but_m5.set_callback(move |_| {
+        wiz_clonex.set_current_widget(&image_compare);
+     });
     let mut wiz_clone = wizard.clone();
     but1.set_callback(move |_| {wiz_clone.next()});
 
@@ -337,12 +439,19 @@ fn main()
 
     let value = menu_principal.clone();
     let value2 = menu_principal.clone();
+    let value3 = menu_principal.clone();
+
+
+
     let mut wiz_clone6 = wizard.clone();
     but_cr2.set_callback(move |_| {wiz_clone6.set_current_widget(&menu_principal);});
 //========
     let mut wiz_clonel = wizard.clone();
     but_op1.set_callback(move |_| {
         wiz_clonel.set_current_widget(&value2);});
+
+    let mut wiz_cloney = wizard.clone();
+    but_im1.set_callback(move |_| {wiz_cloney.set_current_widget(&value3);});
    /*
     let mut wiz_clonel1 = wizard.clone();
     but_op2.set_callback(move |_| {
