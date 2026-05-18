@@ -110,7 +110,7 @@ cargo run --release
 
 ---
 
-## 🚀 Utilisation
+## Utilisation
 
 ### Comparaison de deux fichiers texte
 
