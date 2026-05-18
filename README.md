@@ -26,7 +26,7 @@
 
 ---
 
-## 📋 À propos
+## À propos
 
 **KOMP** est un logiciel de comparaison de documents par paires développé en **Rust**, conçu pour fournir un **pourcentage de similitude précis** entre différents types de fichiers. Il traite des documents textuels, des codes sources et des images grâce à des algorithmes avancés d'analyse et de hachage.
 
@@ -34,36 +34,36 @@
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-### 📄 Comparaison de textes
+### Comparaison de textes
 - Comparaison de documents textuels par paires avec calcul de pourcentage de similitude
 - Analyse de grandes collections de documents (dizaines de milliers voire millions)
 - Détection de doublons et de contenus fortement ressemblants
 - Support des documents longs (articles, livres, rapports)
 
-### 💻 Comparaison de code source
+### Comparaison de code source
 - Analyse de fichiers de code avec nettoyage intelligent des commentaires
 - Suppression automatique des commentaires mono-ligne (`//`, `#`) et multi-lignes (`/* ... */`)
 - Comparaison du contenu logique pur du code, indépendamment de la documentation
 
-### ✏️ Correction orthographique
+### Correction orthographique
 - Vérification orthographique basée sur la **distance de Levenshtein**
 - Mesure précise des écarts entre les mots
 - Suggestion de corrections basées sur la proximité lexicale
 
-### 🖼️ Comparaison d'images *(en cours de développement)*
+### Comparaison d'images *(en cours de développement)*
 - Détection de similarités visuelles via **hachage perceptuel (pHash)**
 - Analyse par **histogrammes de couleurs**
 - Support des formats courants (JPEG, PNG)
 
-### 🖥️ Interface graphique
+### Interface graphique
 - Interface utilisateur native avec **FLTK** (Fast Light Toolkit)
 - Expérience fluide et multiplateforme (Windows, macOS, Linux)
 
 ---
 
-## 🧠 Algorithmes
+## Algorithmes
 
 | Algorithme | Usage | Description |
 |---|---|---|
@@ -75,7 +75,7 @@
 
 ---
 
-## 🔧 Prérequis
+## Prérequis
 
 - **Rust** ≥ 1.85 (édition 2024)
 - **Cargo** (gestionnaire de paquets Rust)
@@ -84,7 +84,7 @@
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### 1. Cloner le dépôt
 
@@ -100,7 +100,7 @@ cd komp-compare
 cargo build --release
 ```
 
-> ⚠️ La première compilation peut prendre plusieurs minutes car FLTK est compilé depuis les sources via CMake.
+ La première compilation peut prendre plusieurs minutes car FLTK est compilé depuis les sources via CMake.
 
 ### 3. Lancer l'application
 
@@ -133,7 +133,7 @@ Le projet inclut des fichiers de test pour démonstration :
 
 ---
 
-## 📁 Architecture
+## Architecture
 
 ```
 Projet-Rust/
@@ -164,7 +164,7 @@ Projet-Rust/
 
 ---
 
-## 📚 Dépendances
+## Dépendances
 
 | Crate | Version | Rôle |
 |---|---|---|
@@ -173,7 +173,7 @@ Projet-Rust/
 
 ---
 
-## 👥 Équipe
+## Équipe
 
 <table align="center">
   <tr>
@@ -200,7 +200,7 @@ Projet-Rust/
 
 ---
 
-## 🌐 Site vitrine
+## Site vitrine
 
 Le projet dispose d'un **site vitrine** accessible en ouvrant le fichier `index.html` dans un navigateur. Ce site présente :
 
@@ -211,7 +211,7 @@ Le projet dispose d'un **site vitrine** accessible en ouvrant le fichier `index.
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [x] Moteur de comparaison textuelle par k-grammes
 - [x] Nettoyage intelligent des commentaires dans le code source
@@ -225,13 +225,13 @@ Le projet dispose d'un **site vitrine** accessible en ouvrant le fichier `index.
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est distribué sous licence **MIT**. Voir le fichier `LICENSE` pour plus de détails.
 
 ---
 
-## 🤝 Contribuer
+## Contribuer
 
 Les contributions sont les bienvenues ! Pour contribuer :
 
