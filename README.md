@@ -68,7 +68,6 @@
 | Algorithme | Usage | Description |
 |---|---|---|
 | **K-grammes** | Texte & Code | Décomposition en sous-séquences de *k* caractères pour l'analyse de similitude |
-| **MinHash** | Texte (masse) | Empreintes probabilistes pour la détection rapide de doublons à grande échelle |
 | **Levenshtein** | Orthographe | Distance d'édition minimale entre deux chaînes de caractères |
 | **pHash** | Images | Hachage perceptuel pour la comparaison visuelle résistante aux transformations |
 | **Histogrammes** | Images | Distribution des couleurs pour la comparaison structurelle des images |
@@ -99,8 +98,6 @@ cd Projet-Rust
 cd komp-compare
 cargo build --release
 ```
-
- La première compilation peut prendre plusieurs minutes car FLTK est compilé depuis les sources via CMake.
 
 ### 3. Lancer l'application
 
@@ -219,7 +216,6 @@ Le projet dispose d'un **site vitrine** accessible en ouvrant le fichier `index.
 - [x] Site vitrine responsive
 - [ ] Intégration complète des empreintes MinHash
 - [ ] Comparaison d'images par pHash et histogrammes
-- [ ] Correction orthographique par distance de Levenshtein
 - [ ] Export des résultats en CSV / JSON
 - [ ] Mode batch pour traitement en masse
 
